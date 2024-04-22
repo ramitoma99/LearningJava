@@ -16,6 +16,8 @@ public class Stuff {
 
         FileReader readFile = new FileReader();
         readFile.readFile("lel.txt");
+
+        iceShop.createSave();
     }
 }
 
@@ -33,6 +35,11 @@ class Business {
 
     public void getBusiNumber() {
         System.out.println("This busi number is: " + this.number);
+    }
+
+    public void createSave (){
+        FileCreator fileCreator = new FileCreator();
+        fileCreator.createFile(this.name+".txt", this.number, "leeeeeeeeel");
     }
 }
 
@@ -57,6 +64,9 @@ class FileReader {
             String line = fileReader.nextLine();
             System.out.println("The file contains: " + line);
         }
+        fileReader.close();
 
     }
 }
+
+//TODO seperation of file creation/writing to files
