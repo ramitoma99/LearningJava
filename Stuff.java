@@ -1,17 +1,52 @@
 import java.io.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Stuff{
+
     public static void main (String[] args) throws IOException {
-        FileUtils saveFile = new FileUtils();
-        saveFile.createFile("HelloNewFile.txt");
+        String fileName = "HelloNewFile.txt";
+        FileUtils fileManager = new FileUtils();
+
+        ArrayList<String> options = new ArrayList<>();
+        options.add("m - make file");
+        options.add("w - write line to file");
+        options.add("r - read lines from file");
+        options.add("d - delete file");
+
+        System.out.println("Welcome, choose your option from FileMananger :)");
+        for (String option : options) {
+            System.out.println(option);
+        }
+
+        Scanner getUserOption = new Scanner(System.in);
+        String selectedOption = getUserOption.nextLine().toLowerCase();
+
+        switch (selectedOption) {
+            case "m":
+                fileManager.createFile(fileName);
+                break;
+            case "w":
+                System.out.println();
+                String text = "";
+                fileManager.writeToFile(fileName, "");
+                break;
+            case "r":
+                fileManager.readFile(fileName);
+                break;
+            case "d":
+                fileManager.deleteFile(fileName);
+                break;
+            default:
+                System.out.println("Invalid choice!");
+        }
+
     }
 }
 class FileUtils {
     public void createFile(String fileName) throws IOException {
         File createFileObj = new File(fileName);
-        createFileObj.createNewFile();
         if (createFileObj.createNewFile()) {
             System.out.println("File " + fileName +" created successfully!");
         } else {
@@ -44,11 +79,11 @@ class FileUtils {
         System.out.println("Delete: " + fileName + "? (y/n)");
         String userDelConfInput = userDeleteConfirm.nextLine();
 
-        if (userDelConfInput.equals("y")) {
+        if (userDelConfInput.equals("y") && deleteFileObj.exists()) {
             deleteFileObj.delete();
             System.out.println("File " + fileName + " deleted successfully!");
         } else {
-            System.out.println("File remains. :D");
+            System.out.println("File deletion canceled.");
         }
 
     }
