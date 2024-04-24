@@ -6,85 +6,107 @@ import java.util.Scanner;
 public class Stuff{
 
     public static void main (String[] args) throws IOException {
-        String fileName = "HelloNewFile.txt";
-        FileUtils fileManager = new FileUtils();
 
-        ArrayList<String> options = new ArrayList<>();
-        options.add("m - make file");
-        options.add("w - write line to file");
-        options.add("r - read lines from file");
-        options.add("d - delete file");
+        Scanner choiceScanner = new Scanner(System.in);
 
-        System.out.println("Welcome, choose your option from FileMananger :)");
-        for (String option : options) {
+
+        ArrayList<String> utils = new ArrayList<>();
+        utils.add("File Manager - create, write, read, delete files (type fm for this)");
+
+        System.out.println("Hello, please choose a utility: ");
+        for (String option : utils) {
             System.out.println(option);
         }
 
-        Scanner getUserOption = new Scanner(System.in);
-        String selectedOption = getUserOption.nextLine().toLowerCase();
+        String utilChoice = choiceScanner.nextLine().toLowerCase();
 
-        switch (selectedOption) {
-            case "m":
-                fileManager.createFile(fileName);
-                break;
-            case "w":
-                System.out.println();
-                String text = "";
-                fileManager.writeToFile(fileName, "");
-                break;
-            case "r":
-                fileManager.readFile(fileName);
-                break;
-            case "d":
-                fileManager.deleteFile(fileName);
-                break;
-            default:
-                System.out.println("Invalid choice!");
+        switch (utilChoice) {
+            case "fm":
+                System.out.println("Welcome to file Manager! You have these options: m, w, r, d");
+                String optionChoice = choiceScanner.nextLine().toLowerCase();
+                FileUtils fileManager = new FileUtils();
+                switch (optionChoice) {
+                    case "m":
+                        fileManager.createFile();
+                        break;
+                    case "w":
+                        fileManager.writeToFile();
+                        break;
+                    case "r":
+                        fileManager.readFile();
+                        break;
+                    case "d":
+                        fileManager.deleteFile();
+                        break;
+                    default:
+                        System.out.println("Invalid input! :(");
+                }
         }
-
     }
 }
 class FileUtils {
-    public void createFile(String fileName) throws IOException {
-        File createFileObj = new File(fileName);
+    public void createFile() throws IOException {
+        System.out.println("Welcome to File Manager's Create File!");
+        System.out.print("Please enter file name to create it: ");
+        Scanner enterFileName = new Scanner(System.in);
+        String enteredFileName = enterFileName.nextLine();
+
+                File createFileObj = new File(enteredFileName + ".txt");
         if (createFileObj.createNewFile()) {
-            System.out.println("File " + fileName +" created successfully!");
+            System.out.println("File " + enteredFileName +" created successfully!");
         } else {
-            System.out.println("File " + fileName + " already exists!");
+            System.out.println("File " + enteredFileName + " already exists!");
         }
     }
 
-    public void writeToFile(String fileName, String text) throws IOException {
-        FileWriter writeToFileObj = new FileWriter(fileName);
-        writeToFileObj.write(text);
+    public void writeToFile() throws IOException {
+        System.out.println("Welcome to File Manager's Write to File!");
+        System.out.print("Please enter file name to write stuff in it: ");
+        Scanner enterFileName = new Scanner(System.in);
+        String enteredFileName = enterFileName.nextLine();
+
+        System.out.print("Please enter text to write in the file: ");
+        Scanner enterFileText = new Scanner(System.in);
+        String enteredFileText = enterFileText.nextLine();
+
+        FileWriter writeToFileObj = new FileWriter(enteredFileName + ".txt");
+        writeToFileObj.write(enteredFileText);
         writeToFileObj.close();
-        System.out.println("Successfully written: " + text + " to file: " + fileName);
+        System.out.println("Successfully written: " + enteredFileText + " to file: " + enteredFileName);
     }
 
-    public void readFile(String fileName) throws FileNotFoundException {
-        File readFileObj = new File(fileName);
+    public void readFile() throws FileNotFoundException {
+        System.out.println("Welcome to File Manager's Read File!");
+        System.out.print("Please enter the file name to read: ");
+        Scanner enterFileName = new Scanner(System.in);
+        String enteredFileName = enterFileName.nextLine();
+
+        File readFileObj = new File(enteredFileName + ".txt");
         Scanner fileToBeRead = new Scanner(readFileObj);
 
-        while (fileToBeRead.hasNextLine()){
+        while (fileToBeRead.hasNextLine()) {
             String line = fileToBeRead.nextLine();
-            System.out.println("The file: " + fileName + " contains the text: " + line);
+            System.out.println("The file: " + enteredFileName + " contains the text: " + line);
         }
         fileToBeRead.close();
     }
 
-    public void deleteFile(String fileName){
+    public void deleteFile() {
+        System.out.println("Welcome to File Manager's Delete File!");
+        System.out.print("Please enter the file name to delete: ");
+        Scanner enterFileName = new Scanner(System.in);
+        String enteredFileName = enterFileName.nextLine();
 
-        File deleteFileObj = new File(fileName);
+        File deleteFileObj = new File(enteredFileName + ".txt");
         Scanner userDeleteConfirm = new Scanner(System.in);
-        System.out.println("Delete: " + fileName + "? (y/n)");
+        System.out.println("Delete: " + enteredFileName + "? (y/n)");
         String userDelConfInput = userDeleteConfirm.nextLine();
 
         if (userDelConfInput.equals("y") && deleteFileObj.exists()) {
             deleteFileObj.delete();
-            System.out.println("File " + fileName + " deleted successfully!");
+            System.out.println("File " + enteredFileName + " deleted successfully!");
         } else {
             System.out.println("File deletion canceled.");
         }
-
     }
 }
