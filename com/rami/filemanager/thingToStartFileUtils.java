@@ -10,6 +10,8 @@ public class thingToStartFileUtils {
 
         ArrayList<String> utils = new ArrayList<>();
         utils.add("File Manager - create, write, read, delete files (type fm for this)");
+        utils.add("Lol");
+        utils.add("AYO WTF?");
 
         System.out.println("Hello, please choose a utility: ");
         for (String option : utils) {
