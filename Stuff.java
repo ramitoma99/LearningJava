@@ -1,72 +1,55 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.*;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
-public class Stuff {
-    public static void main (String[] args) throws FileNotFoundException {
-        Business iceShop = new Business("IceLels", 12345);
-        iceShop.getBusiName();
-        iceShop.getBusiNumber();
-
-        FileCreator saveBusi = new FileCreator();
-        saveBusi.createFile("lel.txt", 32434, "this is the first text in the function");
-
-        FileReader readFile = new FileReader();
-        readFile.readFile("lel.txt");
-
-        iceShop.createSave();
+public class Stuff{
+    public static void main (String[] args) throws IOException {
+        FileUtils saveFile = new FileUtils();
+        saveFile.createFile("HelloNewFile.txt");
     }
 }
-
-class Business {
-    String name;
-    int number;
-    Business(String name, int number) {
-        this.name = name;
-        this.number = number;
-    }
-
-    public void getBusiName(){
-        System.out.println("This busi name is: " + this.name);
-    }
-
-    public void getBusiNumber() {
-        System.out.println("This busi number is: " + this.number);
-    }
-
-    public void createSave (){
-        FileCreator fileCreator = new FileCreator();
-        fileCreator.createFile(this.name+".txt", this.number, "leeeeeeeeel");
-    }
-}
-
-class FileCreator {
-    public void createFile (String fileName, int busiNumber, String fileText){
-        try {
-            FileWriter makeFile = new FileWriter(fileName);
-            makeFile.write("this is the number of the busi: " + busiNumber + "\n");
-            makeFile.write("this is the text: " + fileText + "\n");
-            makeFile.close();
-        } catch (IOException e){
-            System.out.println("An error while writing file has happend.");
+class FileUtils {
+    public void createFile(String fileName) throws IOException {
+        File createFileObj = new File(fileName);
+        createFileObj.createNewFile();
+        if (createFileObj.createNewFile()) {
+            System.out.println("File " + fileName +" created successfully!");
+        } else {
+            System.out.println("File " + fileName + " already exists!");
         }
     }
-}
 
-class FileReader {
+    public void writeToFile(String fileName, String text) throws IOException {
+        FileWriter writeToFileObj = new FileWriter(fileName);
+        writeToFileObj.write(text);
+        writeToFileObj.close();
+        System.out.println("Successfully written: " + text + " to file: " + fileName);
+    }
+
     public void readFile(String fileName) throws FileNotFoundException {
-        File readFile = new File(fileName);
-        Scanner fileReader = new Scanner(readFile);
-        while (fileReader.hasNextLine()){
-            String line = fileReader.nextLine();
-            System.out.println("The file contains: " + line);
+        File readFileObj = new File(fileName);
+        Scanner fileToBeRead = new Scanner(readFileObj);
+
+        while (fileToBeRead.hasNextLine()){
+            String line = fileToBeRead.nextLine();
+            System.out.println("The file: " + fileName + " contains the text: " + line);
         }
-        fileReader.close();
+        fileToBeRead.close();
+    }
+
+    public void deleteFile(String fileName){
+
+        File deleteFileObj = new File(fileName);
+        Scanner userDeleteConfirm = new Scanner(System.in);
+        System.out.println("Delete: " + fileName + "? (y/n)");
+        String userDelConfInput = userDeleteConfirm.nextLine();
+
+        if (userDelConfInput.equals("y")) {
+            deleteFileObj.delete();
+            System.out.println("File " + fileName + " deleted successfully!");
+        } else {
+            System.out.println("File remains. :D");
+        }
 
     }
 }
-
-//TODO seperation of file creation/writing to files

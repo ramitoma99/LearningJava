@@ -1,2 +1,0 @@
-this is the number of the busi: 32434
-this is the text: this is the first text in the function
