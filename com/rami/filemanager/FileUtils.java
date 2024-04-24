@@ -1,10 +1,11 @@
+package com.rami.filemanager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-class FileUtils {
+public class FileUtils {
     public void createFile() throws IOException {
         System.out.println("Welcome to File Manager's Create File!");
         System.out.print("Please enter file name to create it: ");
