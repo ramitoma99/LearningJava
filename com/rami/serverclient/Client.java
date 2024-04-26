@@ -1,5 +1,4 @@
 package com.rami.serverclient;
-import javax.imageio.IIOException;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -29,7 +28,9 @@ public class Client{
           Socket clientSocket = new Socket("localhost", clientPort);
           DataOutputStream clientMsg = new DataOutputStream(clientSocket.getOutputStream());
           clientMsg.writeUTF(userMsg);
+          System.out.println("Message sent to server: " + userMsg);
         } catch (IOException e){
+          System.out.println("Failed to send message to server");
           e.printStackTrace();
         }
       }
