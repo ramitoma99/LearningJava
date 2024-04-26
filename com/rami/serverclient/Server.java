@@ -4,16 +4,17 @@ import java.net.*;
 import java.io.*;
 
 public class Server{
-  int port = 8080;
+  int serverPort;
   boolean serverRunning = true;
-  public void startServer() throws IOException{
+  public void startServer(int serverPort) throws IOException{
+    this.serverPort = serverPort;
 
-    ServerSocket serverSocket1 = new ServerSocket(port);
+    ServerSocket serverSocket1 = new ServerSocket(serverPort);
 
     if(serverSocket1.isBound()){
-      System.out.println("Server is listening on port " + port);
+      System.out.println("Server is listening on port " + serverPort);
       } else {
-      System.out.println("Server is not listening on port " + port);
+      System.out.println("Server is not listening on port " + serverPort);
       }
 
     while (serverRunning){

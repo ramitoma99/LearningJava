@@ -5,8 +5,9 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client{
-  int clientPort = 8080;
-  public void startClient() throws IOException {
+  int clientPort;
+  public void startClient(int clientPort) throws IOException {
+    this.clientPort = clientPort;
     Socket clientSocket = new Socket("localhost", clientPort);
     if (clientSocket.isConnected()){
       System.out.println("Client is connected to port " + clientPort);
