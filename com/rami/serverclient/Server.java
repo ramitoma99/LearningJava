@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 public class Server{
-  int port = 1234;
+  int port = 8080;
   boolean serverRunning = true;
   public void startServer() throws IOException{
 

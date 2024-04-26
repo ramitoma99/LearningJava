@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client{
-  int clientPort = 1234;
+  int clientPort = 8080;
   public void startClient() throws IOException {
     Socket clientSocket = new Socket("localhost", clientPort);
     if (clientSocket.isConnected()){
