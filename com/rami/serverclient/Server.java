@@ -4,9 +4,9 @@ import java.net.*;
 import java.io.*;
 
 public class Server{
+  int port = 1234;
   public void startServer() throws IOException{
-    
-    int port = 1234;
+
     ServerSocket serverSocket1 = new ServerSocket(port);
     boolean serverRunning = true;
 
