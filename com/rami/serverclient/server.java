@@ -14,13 +14,16 @@ public class server{
       System.out.println("Server is not listening on port " + port);
       }
 
+    Client client1 = new Client();
+    client1.startClient();
+
     while (serverRunning){
       Socket clientSocket = serverSocket1.accept();
       System.out.println("Client connected");
       DataInputStream recievedClientMsg = new DataInputStream(clientSocket.getInputStream());
       String clientMsg = recievedClientMsg.readUTF();
       System.out.println("Client message: " + clientMsg);
-      if (recievedClientMsg.readUTF.equals("close server")){
+      if(clientMsg.equals("close server")){
         serverRunning = false;
       }
     }
@@ -38,5 +41,8 @@ class Client{
     } else {
       System.out.println("Client is not connected to port " + clientPort);
     }
+    DataOutputStream clientMsg = new DataOutputStreamclientSocket.getOutputStream();
+    clientMsg.writeUTF("Hello server");
+    clientMsg.writeUTF("close server");
   }
 }
