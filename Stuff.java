@@ -10,8 +10,6 @@ public class Stuff{
         //startUtils.startMe();
 
         Server server1 = new Server();
-        Client client1 = new Client();
-
         server1.startServer();
 
     }

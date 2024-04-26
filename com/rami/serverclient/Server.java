@@ -16,9 +16,6 @@ public class Server{
       System.out.println("Server is not listening on port " + port);
       }
 
-    Client client1 = new Client();
-    client1.startClient();
-
     while (serverRunning){
       Socket clientSocket = serverSocket1.accept();
       System.out.println("Client connected");
